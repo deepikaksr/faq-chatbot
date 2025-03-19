@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FAQ Chatbot</title>
+</head>
+<body>
+    <h2>FAQ Chatbot</h2>
+    <input type="text" id="question" placeholder="Ask a question..." style="width: 400px;">
+    <button onclick="ask()">Ask</button>
+    <p id="answer"></p>
+
+    <script>
+        function ask(){
+            let question = document.getElementById('question').value;
+            fetch('/ask', {
+                method: 'POST',
+                body: JSON.stringify({question: question}),
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('answer').innerText = data.answer;
+            });
+        }
+    </script>
+</body>
+</html>
